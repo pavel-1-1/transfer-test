@@ -4,18 +4,23 @@ import com.example.springdemo.userCard.CardTransfer;
 
 public class Confirmation {
     private CardTransfer[] cardTransfers = new CardTransfer[1];
-    private int id;
+    private String id;
+    private final String code = "45";
 
-    public int getId() {
+    public String getCode() {
+        return code;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public CardTransfer[] getCardTransfers() {
-        return cardTransfers;
+    public CardTransfer getCardTransfers() {
+        return cardTransfers[0];
     }
 
     public void setCardTransfers(CardTransfer[] cardTransfers) {

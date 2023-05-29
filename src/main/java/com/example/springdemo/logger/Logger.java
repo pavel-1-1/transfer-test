@@ -16,7 +16,7 @@ public class Logger {
     private Logger() {
     }
 
-    public static Logger getLOG() throws IOException {
+    public static Logger getLOG() {
         if (LOG == null) {
             synchronized (Logger.class) {
                 if (LOG == null) {
@@ -30,7 +30,7 @@ public class Logger {
 
     public String addLogs(String str) {
         try (FileWriter writer = new FileWriter("logs//log.txt", true)) {
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             Date date = new Date();
             writer.write(format.format(date) + ": " + str);
             writer.write('\n');
@@ -40,12 +40,15 @@ public class Logger {
         return str;
     }
 
-    private static void createFile() throws IOException {
+    private static void createFile() {
         File dir = new File("logs");
         if (!Files.exists(dir.toPath())) {
             dir.mkdir();
             File file = new File("logs//log.txt");
-            file.createNewFile();
+            try {
+                file.createNewFile();
+            } catch (IOException ignored) {
+            }
         }
     }
 }

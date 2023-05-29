@@ -2,6 +2,7 @@ package com.example.springdemo.controller;
 
 import com.example.springdemo.service.Service;
 import com.example.springdemo.userCard.CardTransfer;
+import com.example.springdemo.verification.Verification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/")
@@ -22,13 +22,12 @@ public class postController {
     }
 
     @PostMapping("/transfer")
-    public ResponseEntity<?> transfer(@Valid @RequestBody CardTransfer cardTransfer) throws IOException {
+    public ResponseEntity<?> transfer(@Valid @RequestBody CardTransfer cardTransfer) {
         return service.transfer(cardTransfer);
     }
 
     @PostMapping("/confirmOperation")
-    public String validOperation() {
-        //service.validTransfer(validTransfer);
-        return "Hello Pavel";
+    public ResponseEntity<?> validOperation(@RequestBody Verification verification) {
+        return service.verification(verification);
     }
 }

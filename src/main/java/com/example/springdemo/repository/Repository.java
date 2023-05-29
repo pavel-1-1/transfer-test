@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-
 public class Repository {
     private final Map<Long, Card> cards = new ConcurrentHashMap<>();
 
@@ -19,5 +18,14 @@ public class Repository {
 
     public Map<Long, Card> getCards() {
         return cards;
+    }
+
+    public void transfer(String cardFrom, String cardTo, int amount) {
+        Card cardFroms = cards.get(Long.parseLong(cardFrom, 10));
+        Card cardTos = cards.get(Long.parseLong(cardTo, 10));
+        cardFroms.setAmount(cardFroms.getAmount() - amount);
+        cardTos.setAmount(cardTos.getAmount() + amount);
+        System.out.println("card from: " + cards.get(cardFroms.getCardNumber()).getCardNumber() + ": " + cards.get(cardFroms.getCardNumber()).getAmount() + "\n" +
+                "card to: " + cards.get(cardTos.getCardNumber()).getCardNumber() + ": " + cards.get(cardTos.getCardNumber()).getAmount());
     }
 }
