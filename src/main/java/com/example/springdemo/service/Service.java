@@ -1,40 +1,40 @@
 package com.example.springdemo.service;
 
 import com.example.springdemo.OperationId;
-import com.example.springdemo.advice.TransferException;
+import com.example.springdemo.dto.CardTransfer;
+import com.example.springdemo.dto.TransferException;
 import com.example.springdemo.logger.Logger;
 import com.example.springdemo.repository.Confirmation;
-import com.example.springdemo.repository.Repository;
+import com.example.springdemo.repository.RepositoryUserCard;
 import com.example.springdemo.responses.Res200;
 import com.example.springdemo.userCard.Card;
-import com.example.springdemo.userCard.CardTransfer;
 import com.example.springdemo.verification.Verification;
-import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-
+@Component
 public class Service {
 
-    private final Repository repository;
+    private final RepositoryUserCard repository;
 
-    @Resource(name = "cardTransfer")
     private CardTransfer cardTransfer;
 
-    @Resource(name = "confirmation")
-    private Confirmation confirmation;
+    private final Confirmation confirmation;
 
     private int operationId;
 
-    public Service(Repository repository, Confirmation confirmation) {
+    @Autowired
+    public Service(RepositoryUserCard repository, Confirmation confirmation) {
         this.repository = repository;
         this.confirmation = confirmation;
     }
 
-    public ResponseEntity<?> verification(Verification verification) {
+    public ResponseEntity<Res200> verification(Verification verification) {
         this.operationId = new OperationId().getId();
         try {
             if (confirmation.getCardTransfers() == null) {
@@ -63,7 +63,7 @@ public class Service {
         return new ResponseEntity<>(new Res200(String.valueOf(operationId)), HttpStatusCode.valueOf(200));
     }
 
-    public ResponseEntity<?> transfer(CardTransfer cardTransfer) {
+    public ResponseEntity<Res200> transfer(CardTransfer cardTransfer) {
         this.cardTransfer = cardTransfer;
         this.operationId = new OperationId().getId();
         Card cardFrom = parseCardTransfer(cardTransfer);

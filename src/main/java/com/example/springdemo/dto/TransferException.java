@@ -1,4 +1,4 @@
-package com.example.springdemo.advice;
+package com.example.springdemo.dto;
 
 public class TransferException extends RuntimeException {
     private final Integer operationId;
