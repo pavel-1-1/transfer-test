@@ -1,6 +1,6 @@
 package com.example.springdemo.advice;
 
-import com.example.springdemo.OperationId;
+import com.example.springdemo.operationId.OperationIdTransfer;
 import com.example.springdemo.dto.TransferError;
 import com.example.springdemo.dto.TransferException;
 import org.springframework.http.HttpStatusCode;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<TransferError> validError(MethodArgumentNotValidException e) {
-        TransferError transferError = new TransferError("No value", new OperationId().getId());
+        TransferError transferError = new TransferError("No value", new OperationIdTransfer().getId());
         return new ResponseEntity<>(transferError, HttpStatusCode.valueOf(400));
     }
 

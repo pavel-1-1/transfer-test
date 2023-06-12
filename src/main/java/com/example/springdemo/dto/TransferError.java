@@ -1,4 +1,4 @@
 package com.example.springdemo.dto;
 
-public record TransferError(String message, Integer operationId) {
+public record TransferError(String message, String operationId) {
 }

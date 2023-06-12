@@ -1,10 +1,11 @@
 package com.example.springdemo.controller;
 
-import com.example.springdemo.dto.CardTransfer;
-import com.example.springdemo.responses.Res200;
-import com.example.springdemo.service.Service;
+import com.example.springdemo.dto.CardDto;
+import com.example.springdemo.dto.ResponsesOperationIdTransfer;
+import com.example.springdemo.service.ServiceTransfer;
 import com.example.springdemo.verification.Verification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,20 +18,20 @@ import javax.validation.Valid;
 @RequestMapping("/")
 public class PostControllerTransfer {
 
-    private final Service service;
+    private final ServiceTransfer service;
 
     @Autowired
-    public PostControllerTransfer(Service service) {
+    public PostControllerTransfer(ServiceTransfer service) {
         this.service = service;
     }
 
     @PostMapping("/transfer")
-    public ResponseEntity<Res200> transfer(@Valid @RequestBody CardTransfer cardTransfer) {
-        return service.transfer(cardTransfer);
+    public ResponseEntity<ResponsesOperationIdTransfer> transfer(@Valid @RequestBody CardDto cardDto) {
+        return new ResponseEntity<>(service.transfer(cardDto), HttpStatusCode.valueOf(200));
     }
 
     @PostMapping("/confirmOperation")
-    public ResponseEntity<Res200> validOperation(@RequestBody Verification verification) {
-        return service.verification(verification);
+    public ResponseEntity<ResponsesOperationIdTransfer> validOperation(@RequestBody Verification verification) {
+        return new ResponseEntity<>(service.verification(verification), HttpStatusCode.valueOf(200));
     }
 }

@@ -7,10 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Amount {
-
-    private int value;
-
-    private String currency;
-
+public class CardUser {
+    private String cardNumber;
+    private String cvv;
+    private String mm;
+    private String gg;
+    private Amount amount;
 }
